@@ -1,3 +1,4 @@
+const user = require("../models/user");
 const UserService = require("../services/user-service");
 
 const userService = new UserService();
@@ -24,8 +25,30 @@ const create = async (req,res) => {
         });
         
     }
+  }
+    const signIn = async (req,res) => {
+        try {
+            const reponse = await userService.signIn(req.body.email, req.body.password);
+            return res.status(200).json({
+                message: "Successfully signed in",
+                data: reponse,
+                success: true,
+                err:{}  
+            });
+            
+        } catch (error) {
+             console.log.apply(error);
+        return res.status(500).json({
+            message: "Something went wrong",
+            data: {},
+            succes: false,
+            err:error
+        });
+        }
+    
 }
 
 module.exports ={
-    create
+    create,
+    signIn
 }
