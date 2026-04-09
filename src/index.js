@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const {PORT} = require('./config/serverConfig');
 
 const apiRoutes = require('./routes/index');
-const UserRepository = require('./repository/user-repository');
+//const UserServie = require('./services/user-service');
 
-
+ 
 const app = express();
 
 const prepareAndStartServer = async () => {
@@ -20,9 +20,13 @@ const prepareAndStartServer = async () => {
         // const repo = new UserRepository();
         // const reponse = await repo.getById(1);
         //  console.log(reponse);
+        // const service = new UserServie();
+        // const newToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzc1NzUzMTc0LCJleHAiOjE3NzU3NTY3NzR9.Kwf0osEkUdNqPKN4yzfiBIKpHDihIfD-x8AgAYpogbA";
+        // const response = service.verifyToken(newToken);
+        // console.log(response);
 
-
-    });
+            
+     });
 }
   
 
