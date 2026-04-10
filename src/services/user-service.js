@@ -87,6 +87,15 @@ class UserService{
         }
     }
 
+    isAdmin(userId){
+        try {
+            return this.UserRepository.isAdmin(userId);
+            
+        } catch (error) {
+            
+        }
+    }
+
 
 
 
