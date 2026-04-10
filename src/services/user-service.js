@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
 const UserRepository = require('../repository/user-repository');
 const {JWT_KEY} = require('../config/serverConfig');
+const { isAuthenticated } = require('../controllers/user-controller');
 
 class UserService{
     constructor(){
@@ -32,13 +33,31 @@ class UserService{
 
                 //step 3: if password matches then create a token and send it to the user
                 const newToken = this.createToken({email: user.email, id: user.id});
+
                 return newToken;
         } catch (error) {
             console.log("Something went wrong  in the sign in process");
+            console.error(error);
             throw error;    
         }
     }
+    async isAuthenticated(token){
+        try {
+            const response = this.verifyToken(token);
+            if(!response){
+                throw {error: "Invalid token"};
+            }
+            const user = await this.UserRepository.getById(response.id);
+            if(!user){
+                throw {error: "NO user with the coresponding token exists"};
+            }
+            return user.id;
 
+        } catch (error) {
+            console.log("Something went wrong  in auth process");
+            throw error;    
+        }
+    }
     createToken(user) {
          try {
             const result = jwt.sign(user, JWT_KEY, {expiresIn: '1d'});
