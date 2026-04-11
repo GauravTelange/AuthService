@@ -20,7 +20,7 @@ class UserService{
                 throw error;
             }
             console.log("Something went wrong  on service layer");
-            throw error;
+            throw error; 
         }
     }
 
@@ -40,6 +40,9 @@ class UserService{
 
                 return newToken;
         } catch (error) {
+            if(error.name == 'AttributeNotFound'){
+                throw error;
+            }
             console.log("Something went wrong  in the sign in process");
             console.error(error);
             throw error;    
