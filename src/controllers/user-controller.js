@@ -17,11 +17,11 @@ const create = async (req,res) => {
         });
     } catch (error) {
         console.log.apply(error);
-        return res.status(500).json({
-            message: "Something went wrong",
+        return res.status(error.statusCode).json({
+            message: error.message,
             data: {},
             succes: false,
-            err:error
+            err:error.explanation
         });
         
     }
@@ -74,7 +74,7 @@ const isAuthenticated= async (req,res) => {
              const repponse = await userService.isAdmin(req.body.id);
              return res.status(200).json({
                 succes: true,
-                err: {}, 
+                err: {},  
                 data: response,
                 message: "Successfully fetched user is Admin or not"
             }); 
@@ -95,4 +95,4 @@ module.exports ={
     signIn,
     isAuthenticated,
     isAdmin
-}
+} 
